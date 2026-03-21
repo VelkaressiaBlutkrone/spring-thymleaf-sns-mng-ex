@@ -60,7 +60,7 @@ class _PostFormScreenState extends ConsumerState<PostFormScreen> {
       _generalError = null;
     });
     try {
-      final minePinsFuture = pinRepository.getMine(size: 100);
+      final minePinsFuture = pinRepository.getAll(size: 100);
       final postFuture =
           widget.isEdit ? postRepository.getById(widget.postId!) : null;
 

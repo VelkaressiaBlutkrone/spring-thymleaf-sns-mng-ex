@@ -135,7 +135,7 @@ export const ProfilePage = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-bottom border-slate-200 px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex items-center justify-between">
         <button 
           onClick={() => navigate('/')}
           className="p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-600 flex items-center gap-2"

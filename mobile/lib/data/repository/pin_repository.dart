@@ -12,8 +12,8 @@ class PinRepository {
 
   final ApiClient _api;
 
-  /// 내 Pin 목록: GET /api/pins
-  Future<PageResponse<PinResponse>> getMine({
+  /// 전체 Pin 목록: GET /api/pins
+  Future<PageResponse<PinResponse>> getAll({
     int page = 0,
     int size = 50,
   }) async {

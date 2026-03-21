@@ -42,37 +42,37 @@ class _MeScreenState extends ConsumerState<MeScreen>
     if (authState is! AuthAuthenticated) return;
 
     final controller = TextEditingController(text: authState.member.nickname);
-    final saved = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('개인정보 수정'),
-        content: TextField(
-          controller: controller,
-          decoration: const InputDecoration(
-            labelText: '닉네임',
-            border: OutlineInputBorder(),
-          ),
-          autofocus: true,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('취소'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('저장'),
-          ),
-        ],
-      ),
-    );
-
-    if (saved != true || !mounted) return;
-
-    final newNickname = controller.text.trim();
-    if (newNickname.isEmpty || newNickname == authState.member.nickname) return;
-
     try {
+      final saved = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('개인정보 수정'),
+          content: TextField(
+            controller: controller,
+            decoration: const InputDecoration(
+              labelText: '닉네임',
+              border: OutlineInputBorder(),
+            ),
+            autofocus: true,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: const Text('취소'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: const Text('저장'),
+            ),
+          ],
+        ),
+      );
+
+      if (saved != true || !mounted) return;
+
+      final newNickname = controller.text.trim();
+      if (newNickname.isEmpty || newNickname == authState.member.nickname) return;
+
       await memberRepository.updateMe(
         MemberUpdateRequest(nickname: newNickname),
       );
@@ -88,8 +88,9 @@ class _MeScreenState extends ConsumerState<MeScreen>
           SnackBar(content: Text(e.message)),
         );
       }
+    } finally {
+      controller.dispose();
     }
-    controller.dispose();
   }
 
   @override

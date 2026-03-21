@@ -53,11 +53,12 @@ class ImagePostDetailScreen extends ConsumerWidget {
     try {
       await imagePostRepository.delete(postId);
       ref.invalidate(imagePostListProvider(const ImagePostListParams()));
+      ref.invalidate(imagePostDetailProvider(postId));
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('이미지 게시글이 삭제되었습니다.')),
         );
-        context.go(AppRoutes.posts);
+        context.go(AppRoutes.imagePosts);
       }
     } on AppException catch (e) {
       if (context.mounted) {

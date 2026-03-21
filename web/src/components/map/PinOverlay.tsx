@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { X, Navigation, Coffee, Utensils, Camera, Heart, Star, MapPin, ArrowRight } from 'lucide-react';
 import { Pin, User, Post } from '../../types';
 import { cn } from '../../utils/cn';
+import { CATEGORIES } from '../../constants';
 
 interface PinOverlayProps {
   pin: Pin;
@@ -14,23 +15,13 @@ interface PinOverlayProps {
   onViewPost?: (post: Post) => void;
 }
 
-const CATEGORY_ICONS: Record<string, any> = {
-  default: MapPin,
-  cafe: Coffee,
-  food: Utensils,
-  photo: Camera,
-  favorite: Heart,
-  'must-visit': Star,
-};
+const CATEGORY_ICONS: Record<string, any> = Object.fromEntries(
+  CATEGORIES.map(c => [c.id, c.icon])
+);
 
-const CATEGORY_COLORS: Record<string, string> = {
-  default: 'bg-slate-500',
-  cafe: 'bg-amber-500',
-  food: 'bg-orange-500',
-  photo: 'bg-blue-500',
-  favorite: 'bg-pink-500',
-  'must-visit': 'bg-yellow-500',
-};
+const CATEGORY_COLORS: Record<string, string> = Object.fromEntries(
+  CATEGORIES.map(c => [c.id, c.color])
+);
 
 export const PinOverlay = ({
   pin,

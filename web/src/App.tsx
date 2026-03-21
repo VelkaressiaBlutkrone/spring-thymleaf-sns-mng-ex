@@ -70,13 +70,13 @@ function MapView() {
   const markerScale = Math.pow(1.15, 3 - m.zoomLevel);
 
   const getPinMarkerImage = (category: string) => {
-    const color = 
+    const color =
       category === 'cafe' ? '#f59e0b' : // amber-500
-      category === 'food' ? '#f97316' : // orange-500
-      category === 'photo' ? '#3b82f6' : // blue-500
+      category === 'food' ? '#f43f5e' : // rose-500
+      category === 'photo' ? '#8b5cf6' : // violet-500
       category === 'favorite' ? '#ec4899' : // pink-500
-      category === 'must-visit' ? '#eab308' : // yellow-500
-      '#78716c'; // slate-500
+      category === 'must-visit' ? '#06b6d4' : // cyan-500
+      '#64748b'; // slate-500
     
     const svg = `
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

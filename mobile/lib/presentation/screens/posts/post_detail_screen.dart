@@ -51,6 +51,7 @@ class PostDetailScreen extends ConsumerWidget {
     try {
       await postRepository.delete(postId);
       ref.invalidate(postListProvider(const PostListParams()));
+      ref.invalidate(postDetailProvider(postId));
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('게시글이 삭제되었습니다.')),

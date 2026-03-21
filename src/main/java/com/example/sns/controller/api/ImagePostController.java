@@ -87,11 +87,12 @@ public class ImagePostController {
                 contentType = "image/webp";
             }
         }
+        String safeName = (resource.getFilename() != null)
+                ? resource.getFilename().replaceAll("[\\r\\n\"\\\\]", "_")
+                : "image";
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "inline; filename=\"" + (resource.getFilename() != null ? resource.getFilename() : "image")
-                                + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + safeName + "\"")
                 .body(resource);
     }
 

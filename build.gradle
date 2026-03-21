@@ -103,6 +103,7 @@ dependencies {
      * Rate Limiting (RULE 1.9, Step 18)
      * =============================== */
     implementation 'com.bucket4j:bucket4j-core:8.10.1'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
 
     /* ===============================
      * JWT (jjwt 0.12.x)

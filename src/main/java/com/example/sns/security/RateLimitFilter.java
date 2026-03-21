@@ -3,8 +3,7 @@ package com.example.sns.security;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -13,6 +12,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.sns.config.ratelimit.RateLimitProperties;
 import com.example.sns.exception.ErrorCode;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -41,8 +42,14 @@ public class RateLimitFilter extends OncePerRequestFilter {
             "POST:/api/members",
             "POST:/api/auth/refresh");
 
+    private static final Pattern PIN_POSTS_PATTERN = Pattern.compile("/api/pins/\\d+/posts");
+    private static final Pattern PIN_IMAGE_POSTS_PATTERN = Pattern.compile("/api/pins/\\d+/image-posts");
+
     private final RateLimitProperties props;
-    private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
+    private final Cache<String, Bucket> buckets = Caffeine.newBuilder()
+            .maximumSize(100_000)
+            .expireAfterAccess(Duration.ofMinutes(10))
+            .build();
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
@@ -65,7 +72,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
         if ("/api/pins/nearby".equals(path)) {
             return true;
         }
-        if (path.matches("/api/pins/\\d+/posts") || path.matches("/api/pins/\\d+/image-posts")) {
+        if (PIN_POSTS_PATTERN.matcher(path).matches() || PIN_IMAGE_POSTS_PATTERN.matcher(path).matches()) {
             return true;
         }
         return "/api/map/directions".equals(path);
@@ -103,7 +110,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
     private Bucket bucketFor(String path, String method, String clientKey) {
         String bucketKey = bucketKey(path, method, clientKey);
-        return buckets.computeIfAbsent(bucketKey, k -> buildBucket(path, method));
+        return buckets.get(bucketKey, k -> buildBucket(path, method));
     }
 
     private String bucketKey(String path, String method, String clientKey) {
@@ -135,11 +142,12 @@ public class RateLimitFilter extends OncePerRequestFilter {
         return Bucket.builder().addLimit(bandwidth).build();
     }
 
+    /**
+     * 클라이언트 IP 결정.
+     * X-Forwarded-For를 직접 신뢰하지 않고 getRemoteAddr()을 사용.
+     * 리버스 프록시 환경에서는 server.forward-headers-strategy=NATIVE 설정 필요.
+     */
     private String resolveClientKey(HttpServletRequest request) {
-        String xff = request.getHeader("X-Forwarded-For");
-        if (xff != null && !xff.isBlank()) {
-            return xff.split(",")[0].trim();
-        }
         return request.getRemoteAddr() != null ? request.getRemoteAddr() : "unknown";
     }
 

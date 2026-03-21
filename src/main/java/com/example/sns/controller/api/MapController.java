@@ -89,10 +89,20 @@ public class MapController {
 
         String[] orig = origin.split(",");
         String[] dest = destination.split(",");
-        double originLng = Double.parseDouble(orig[0].trim());
-        double originLat = Double.parseDouble(orig[1].trim());
-        double destLng = Double.parseDouble(dest[0].trim());
-        double destLat = Double.parseDouble(dest[1].trim());
+        if (orig.length < 2 || dest.length < 2) {
+            return ResponseEntity.badRequest().body(
+                    java.util.Map.of("error", "origin과 destination은 'lng,lat' 형식이어야 합니다."));
+        }
+        double originLng, originLat, destLng, destLat;
+        try {
+            originLng = Double.parseDouble(orig[0].trim());
+            originLat = Double.parseDouble(orig[1].trim());
+            destLng = Double.parseDouble(dest[0].trim());
+            destLat = Double.parseDouble(dest[1].trim());
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body(
+                    java.util.Map.of("error", "좌표는 숫자여야 합니다."));
+        }
 
         String transportMode = mode.toUpperCase();
         DirectionsResult result = directionsService.getDirections(

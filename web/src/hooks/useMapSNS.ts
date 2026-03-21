@@ -120,7 +120,8 @@ export const useMapSNS = () => {
         const pinsData = pinsRes.data;
         setPins(Array.isArray(pinsData) ? pinsData : pinsData.content ?? []);
         setFollowingIds(followingRes.data);
-        setNotifications(notificationsRes.data);
+        const notiData = notificationsRes.data;
+        setNotifications(Array.isArray(notiData) ? notiData : notiData.content ?? []);
 
         const likedPostIds = likesRes.data;
         setPosts(prev => prev.map(p => ({

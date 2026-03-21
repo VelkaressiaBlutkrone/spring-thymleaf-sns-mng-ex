@@ -140,7 +140,7 @@ export const PostFeed = ({
                 <div className="flex items-center gap-1 text-slate-400">
                   <MapPin className="w-3 h-3" />
                   <span className="text-[10px] font-medium truncate">
-                    {post.lat.toFixed(4)}, {post.lng.toFixed(4)}
+                    {post.lat?.toFixed(4) ?? '-'}, {post.lng?.toFixed(4) ?? '-'}
                   </span>
                 </div>
               </div>

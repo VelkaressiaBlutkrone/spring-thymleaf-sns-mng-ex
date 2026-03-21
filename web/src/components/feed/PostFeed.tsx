@@ -38,36 +38,36 @@ export const PostFeed = ({
   };
 
   return (
-    <div className="bg-white border-t border-stone-200 h-64 flex flex-col">
-      <div className="px-6 py-3 border-b border-stone-100 flex items-center justify-between bg-stone-50/50">
+    <div className="bg-white border-t border-slate-200 h-64 flex flex-col">
+      <div className="px-6 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
         <div className="flex items-center gap-6">
-          <h2 className="text-sm font-black text-stone-800 uppercase tracking-widest flex items-center gap-2">
-            <MessageCircle className="w-4 h-4 text-emerald-600" />
+          <h2 className="text-sm font-black text-slate-800 uppercase tracking-widest flex items-center gap-2">
+            <MessageCircle className="w-4 h-4 text-brand-600" />
             Recent Stories
           </h2>
           
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1 bg-stone-200/50 p-1 rounded-xl">
+            <div className="flex items-center gap-1 bg-slate-200/50 p-1 rounded-xl">
               {sortOptions.map((option) => (
                 <button
                   key={option.id}
                   onClick={() => onSortChange(option.id)}
                   className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-bold transition-all ${
                     sortBy === option.id 
-                      ? "bg-white text-emerald-600 shadow-sm" 
-                      : "text-stone-500 hover:text-stone-800"
+                      ? "bg-white text-brand-600 shadow-sm" 
+                      : "text-slate-500 hover:text-slate-800"
                   }`}
                 >
-                  <option.icon className={`w-3 h-3 ${sortBy === option.id ? "text-emerald-600" : "text-stone-400"}`} />
+                  <option.icon className={`w-3 h-3 ${sortBy === option.id ? "text-brand-600" : "text-slate-400"}`} />
                   {option.label}
                 </button>
               ))}
             </div>
 
-            <div className="w-px h-6 bg-stone-200" />
+            <div className="w-px h-6 bg-slate-200" />
 
             <div className="flex items-center gap-1">
-              <Filter className="w-3 h-3 text-stone-400 mr-1" />
+              <Filter className="w-3 h-3 text-slate-400 mr-1" />
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
@@ -75,8 +75,8 @@ export const PostFeed = ({
                   className={cn(
                     "flex items-center gap-1.5 px-2 py-1 rounded-lg text-[10px] font-bold transition-all border",
                     filterCategories.includes(cat.id)
-                      ? "bg-emerald-50 border-emerald-200 text-emerald-600"
-                      : "bg-white border-stone-100 text-stone-400 hover:border-stone-200"
+                      ? "bg-brand-50 border-brand-200 text-brand-600"
+                      : "bg-white border-slate-100 text-slate-400 hover:border-slate-200"
                   )}
                 >
                   <div className={cn("w-2 h-2 rounded-full", cat.color)} />
@@ -87,7 +87,7 @@ export const PostFeed = ({
           </div>
         </div>
         
-        <span className="text-[10px] font-bold text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">
+        <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
           {posts.length} Posts
         </span>
       </div>
@@ -100,9 +100,9 @@ export const PostFeed = ({
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onPostClick(post)}
-              className="flex flex-col bg-white rounded-2xl border border-stone-100 shadow-sm hover:shadow-md transition-all overflow-hidden w-64 text-left group"
+              className="flex flex-col bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden w-64 text-left group"
             >
-              <div className="relative aspect-video overflow-hidden bg-stone-100">
+              <div className="relative aspect-video overflow-hidden bg-slate-100">
                 <img 
                   src={post.imageUrl} 
                   alt="" 
@@ -117,7 +117,7 @@ export const PostFeed = ({
                   {post.category && post.category !== 'default' && (
                     <div className={cn(
                       "px-2 py-1 rounded-lg text-[8px] font-black text-white uppercase tracking-widest",
-                      CATEGORIES.find(c => c.id === post.category)?.color || "bg-stone-500"
+                      CATEGORIES.find(c => c.id === post.category)?.color || "bg-slate-500"
                     )}>
                       {CATEGORIES.find(c => c.id === post.category)?.label}
                     </div>
@@ -127,17 +127,17 @@ export const PostFeed = ({
               
               <div className="p-3 flex flex-col flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center text-[8px] text-emerald-700 font-bold">
+                  <div className="w-5 h-5 rounded-full bg-brand-100 flex items-center justify-center text-[8px] text-brand-700 font-bold">
                     {post.userName[0]}
                   </div>
-                  <span className="text-[10px] font-bold text-stone-800 truncate">{post.userName}</span>
+                  <span className="text-[10px] font-bold text-slate-800 truncate">{post.userName}</span>
                 </div>
                 
-                <p className="text-xs text-stone-600 line-clamp-2 mb-2 flex-1">
+                <p className="text-xs text-slate-600 line-clamp-2 mb-2 flex-1">
                   {post.content}
                 </p>
                 
-                <div className="flex items-center gap-1 text-stone-400">
+                <div className="flex items-center gap-1 text-slate-400">
                   <MapPin className="w-3 h-3" />
                   <span className="text-[10px] font-medium truncate">
                     {post.lat.toFixed(4)}, {post.lng.toFixed(4)}
@@ -148,7 +148,7 @@ export const PostFeed = ({
           ))}
           
           {posts.length === 0 && (
-            <div className="flex flex-col items-center justify-center w-64 text-stone-400 gap-2">
+            <div className="flex flex-col items-center justify-center w-64 text-slate-400 gap-2">
               <MessageCircle className="w-8 h-8 opacity-20" />
               <p className="text-xs font-bold uppercase tracking-widest opacity-50">No stories yet</p>
             </div>

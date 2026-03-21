@@ -33,7 +33,7 @@ export const ConfirmationModal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
           />
           <motion.div 
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -50,8 +50,8 @@ export const ConfirmationModal = ({
               <AlertTriangle className="w-8 h-8" />
             </div>
 
-            <h3 className="text-xl font-black text-stone-800 mb-2 tracking-tight">{title}</h3>
-            <p className="text-sm text-stone-500 leading-relaxed mb-8">
+            <h3 className="text-xl font-black text-slate-800 mb-2 tracking-tight">{title}</h3>
+            <p className="text-sm text-slate-500 leading-relaxed mb-8">
               {message}
             </p>
 
@@ -65,14 +65,14 @@ export const ConfirmationModal = ({
                   "w-full py-4 rounded-2xl font-bold shadow-lg transition-all active:scale-95",
                   variant === 'danger' ? "bg-red-500 text-white shadow-red-200 hover:bg-red-600" :
                   variant === 'warning' ? "bg-amber-500 text-white shadow-amber-200 hover:bg-amber-600" :
-                  "bg-emerald-600 text-white shadow-emerald-200 hover:bg-emerald-700"
+                  "bg-brand-600 text-white shadow-brand-200 hover:bg-brand-700"
                 )}
               >
                 {confirmLabel}
               </button>
               <button 
                 onClick={onClose}
-                className="w-full py-4 bg-stone-100 text-stone-600 rounded-2xl font-bold hover:bg-stone-200 transition-all active:scale-95"
+                className="w-full py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all active:scale-95"
               >
                 {cancelLabel}
               </button>
@@ -80,7 +80,7 @@ export const ConfirmationModal = ({
 
             <button 
               onClick={onClose}
-              className="absolute top-6 right-6 p-2 text-stone-300 hover:text-stone-600 transition-colors"
+              className="absolute top-6 right-6 p-2 text-slate-300 hover:text-slate-600 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>

@@ -105,28 +105,30 @@ export const useMapSNS = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const [postsRes, pinsRes] = await Promise.all([
-        api.get('/posts'),
-        api.get('/pins')
-      ]);
-      setPosts(postsRes.data);
-      setPins(pinsRes.data);
+      // /api/posts는 공개 (Page 응답), /api/pins는 로그인 필수
+      const postsRes = await api.get('/posts');
+      const postsData = postsRes.data;
+      setPosts(Array.isArray(postsData) ? postsData : postsData.content ?? []);
 
       if (token) {
-        const [followingRes, notificationsRes, likesRes] = await Promise.all([
+        const [pinsRes, followingRes, notificationsRes, likesRes] = await Promise.all([
+          api.get('/pins'),
           api.get('/profile/following-ids'),
           api.get('/notifications'),
           api.get('/profile/liked-post-ids')
         ]);
+        const pinsData = pinsRes.data;
+        setPins(Array.isArray(pinsData) ? pinsData : pinsData.content ?? []);
         setFollowingIds(followingRes.data);
         setNotifications(notificationsRes.data);
-        
+
         const likedPostIds = likesRes.data;
         setPosts(prev => prev.map(p => ({
           ...p,
           isLiked: likedPostIds.includes(p.id)
         })));
       } else {
+        setPins([]);
         setFollowingIds([]);
         setNotifications([]);
       }

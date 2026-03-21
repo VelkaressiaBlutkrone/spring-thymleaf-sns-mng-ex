@@ -108,10 +108,10 @@ export const ProfilePage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="animate-pulse flex flex-col items-center gap-4">
-          <div className="w-12 h-12 bg-emerald-100 rounded-full" />
-          <div className="h-4 w-32 bg-stone-200 rounded" />
+          <div className="w-12 h-12 bg-brand-100 rounded-full" />
+          <div className="h-4 w-32 bg-slate-200 rounded" />
         </div>
       </div>
     );
@@ -119,11 +119,11 @@ export const ProfilePage = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-stone-50 flex flex-col items-center justify-center p-4">
-        <h2 className="text-2xl font-bold text-stone-800 mb-2">User not found</h2>
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+        <h2 className="text-2xl font-bold text-slate-800 mb-2">User not found</h2>
         <button 
           onClick={() => navigate('/')}
-          className="text-emerald-600 font-bold flex items-center gap-2"
+          className="text-brand-600 font-bold flex items-center gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Map
@@ -133,27 +133,27 @@ export const ProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-bottom border-stone-200 px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-bottom border-slate-200 px-6 py-4 flex items-center justify-between">
         <button 
           onClick={() => navigate('/')}
-          className="p-2 hover:bg-stone-100 rounded-xl transition-colors text-stone-600 flex items-center gap-2"
+          className="p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-600 flex items-center gap-2"
         >
           <ArrowLeft className="w-5 h-5" />
           <span className="font-bold text-sm">Back to Map</span>
         </button>
         <div className="flex items-center gap-2">
-          <MapIcon className="w-5 h-5 text-emerald-600" />
-          <span className="font-bold text-stone-800">MapSNS</span>
+          <MapIcon className="w-5 h-5 text-brand-600" />
+          <span className="font-bold text-slate-800">MapSNS</span>
         </div>
         <div className="w-10" /> {/* Spacer */}
       </header>
 
       <main className="flex-1 max-w-4xl w-full mx-auto p-6 space-y-8">
         {/* Profile Card */}
-        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-stone-200/50 overflow-hidden border border-stone-100">
-          <div className="h-48 bg-stone-200 relative">
+        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
+          <div className="h-48 bg-slate-200 relative">
             {user.profilePic && (
               <img src={user.profilePic} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             )}
@@ -166,7 +166,7 @@ export const ProfilePage = () => {
                 {user.profilePic ? (
                   <img src={user.profilePic} alt="" className="w-full h-full object-cover rounded-[2rem]" referrerPolicy="no-referrer" />
                 ) : (
-                  <div className="w-full h-full bg-emerald-100 rounded-[2rem] flex items-center justify-center text-4xl text-emerald-700 font-bold">
+                  <div className="w-full h-full bg-brand-100 rounded-[2rem] flex items-center justify-center text-4xl text-brand-700 font-bold">
                     {user.name[0]}
                   </div>
                 )}
@@ -174,13 +174,13 @@ export const ProfilePage = () => {
               
               <div className="flex-1 mb-2">
                 <div className="flex items-center gap-4 flex-wrap">
-                  <h1 className="text-3xl font-black text-stone-800 tracking-tight">{user.name}</h1>
+                  <h1 className="text-3xl font-black text-slate-800 tracking-tight">{user.name}</h1>
                   {currentUser && currentUser.id !== user.id && (
                     <div className="flex items-center">
                       {isFollowing ? (
                         <button 
                           onClick={handleUnfollow}
-                          className="flex items-center gap-2 px-4 py-1.5 bg-stone-100 text-stone-600 rounded-xl text-xs font-bold hover:bg-stone-200 transition-all"
+                          className="flex items-center gap-2 px-4 py-1.5 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold hover:bg-slate-200 transition-all"
                         >
                           <UserMinus className="w-3 h-3" />
                           Unfollow
@@ -188,7 +188,7 @@ export const ProfilePage = () => {
                       ) : (
                         <button 
                           onClick={handleFollow}
-                          className="flex items-center gap-2 px-4 py-1.5 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-900/20 transition-all"
+                          className="flex items-center gap-2 px-4 py-1.5 bg-brand-600 text-white rounded-xl text-xs font-bold hover:bg-brand-700 shadow-lg shadow-brand-900/20 transition-all"
                         >
                           <UserPlus className="w-3 h-3" />
                           Follow
@@ -200,21 +200,21 @@ export const ProfilePage = () => {
                 <div className="flex gap-6 mt-2">
                   <button 
                     onClick={() => openFollowModal('followers')}
-                    className="flex flex-col hover:bg-stone-50 p-2 -m-2 rounded-xl transition-colors text-left"
+                    className="flex flex-col hover:bg-slate-50 p-2 -m-2 rounded-xl transition-colors text-left"
                   >
-                    <span className="text-lg font-bold text-stone-800">{user.followersCount || 0}</span>
-                    <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Followers</span>
+                    <span className="text-lg font-bold text-slate-800">{user.followersCount || 0}</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Followers</span>
                   </button>
                   <button 
                     onClick={() => openFollowModal('following')}
-                    className="flex flex-col hover:bg-stone-50 p-2 -m-2 rounded-xl transition-colors text-left"
+                    className="flex flex-col hover:bg-slate-50 p-2 -m-2 rounded-xl transition-colors text-left"
                   >
-                    <span className="text-lg font-bold text-stone-800">{user.followingCount || 0}</span>
-                    <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Following</span>
+                    <span className="text-lg font-bold text-slate-800">{user.followingCount || 0}</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Following</span>
                   </button>
                   <div className="flex flex-col p-2 -m-2">
-                    <span className="text-lg font-bold text-stone-800">{posts.length}</span>
-                    <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Stories</span>
+                    <span className="text-lg font-bold text-slate-800">{posts.length}</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Stories</span>
                   </div>
                 </div>
               </div>
@@ -222,8 +222,8 @@ export const ProfilePage = () => {
             </div>
 
             <div className="mt-8">
-              <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-2">About</label>
-              <p className="text-stone-600 text-base leading-relaxed">
+              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">About</label>
+              <p className="text-slate-600 text-base leading-relaxed">
                 {user.bio || "No bio shared yet."}
               </p>
             </div>
@@ -235,8 +235,8 @@ export const ProfilePage = () => {
           {/* Stories */}
           <section>
             <div className="flex items-center justify-between mb-6 px-2">
-              <h2 className="text-xl font-bold text-stone-800 flex items-center gap-2">
-                <MessageSquare className="w-6 h-6 text-emerald-600" />
+              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <MessageSquare className="w-6 h-6 text-brand-600" />
                 Stories
               </h2>
             </div>
@@ -247,19 +247,19 @@ export const ProfilePage = () => {
                     key={post.id} 
                     whileHover={{ y: -4 }}
                     onClick={() => navigate(`/?lat=${post.lat}&lng=${post.lng}&post=${post.id}`)}
-                    className="bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden group hover:shadow-xl transition-all cursor-pointer"
+                    className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden group hover:shadow-xl transition-all cursor-pointer"
                   >
                     <div className="aspect-video relative overflow-hidden">
                       <img src={post.imageUrl} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                     </div>
                     <div className="p-6">
-                      <p className="text-stone-600 text-sm leading-relaxed line-clamp-3">{post.content}</p>
-                      <div className="mt-4 pt-4 border-t border-stone-50 flex justify-between items-center">
-                        <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
+                      <p className="text-slate-600 text-sm leading-relaxed line-clamp-3">{post.content}</p>
+                      <div className="mt-4 pt-4 border-t border-slate-50 flex justify-between items-center">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                           {new Date(post.createdAt).toLocaleDateString()}
                         </span>
-                        <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider group-hover:translate-x-1 transition-transform">
+                        <span className="text-[10px] font-bold text-brand-600 uppercase tracking-wider group-hover:translate-x-1 transition-transform">
                           View on Map →
                         </span>
                       </div>
@@ -267,9 +267,9 @@ export const ProfilePage = () => {
                   </motion.div>
                 ))
               ) : (
-                <div className="py-16 text-center bg-white rounded-[2.5rem] border border-dashed border-stone-200">
-                  <ImageIcon className="w-12 h-12 mx-auto mb-4 text-stone-200" />
-                  <p className="text-stone-400 font-medium">No stories shared yet.</p>
+                <div className="py-16 text-center bg-white rounded-[2.5rem] border border-dashed border-slate-200">
+                  <ImageIcon className="w-12 h-12 mx-auto mb-4 text-slate-200" />
+                  <p className="text-slate-400 font-medium">No stories shared yet.</p>
                 </div>
               )}
             </div>
@@ -278,8 +278,8 @@ export const ProfilePage = () => {
           {/* Pins */}
           <section>
             <div className="flex items-center justify-between mb-6 px-2">
-              <h2 className="text-xl font-bold text-stone-800 flex items-center gap-2">
-                <Navigation className="w-6 h-6 text-emerald-600" />
+              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <Navigation className="w-6 h-6 text-brand-600" />
                 Pinned Locations
               </h2>
             </div>
@@ -290,24 +290,24 @@ export const ProfilePage = () => {
                     key={pin.id} 
                     whileHover={{ x: 4 }}
                     onClick={() => navigate(`/?lat=${pin.lat}&lng=${pin.lng}&pin=${pin.id}`)}
-                    className="bg-white p-5 rounded-2xl shadow-sm border border-stone-100 flex items-center gap-4 hover:shadow-md transition-all cursor-pointer group"
+                    className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4 hover:shadow-md transition-all cursor-pointer group"
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Navigation className="w-6 h-6 text-emerald-600" />
+                    <div className="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Navigation className="w-6 h-6 text-brand-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-stone-800 truncate">{pin.title}</p>
-                      <p className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">{pin.lat.toFixed(4)}, {pin.lng.toFixed(4)}</p>
+                      <p className="font-bold text-slate-800 truncate">{pin.title}</p>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{pin.lat.toFixed(4)}, {pin.lng.toFixed(4)}</p>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-[10px] font-bold text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity">
                       GO →
                     </span>
                   </motion.div>
                 ))
               ) : (
-                <div className="py-16 text-center bg-white rounded-[2.5rem] border border-dashed border-stone-200">
-                  <Navigation className="w-12 h-12 mx-auto mb-4 text-stone-200" />
-                  <p className="text-stone-400 font-medium">No pins saved yet.</p>
+                <div className="py-16 text-center bg-white rounded-[2.5rem] border border-dashed border-slate-200">
+                  <Navigation className="w-12 h-12 mx-auto mb-4 text-slate-200" />
+                  <p className="text-slate-400 font-medium">No pins saved yet.</p>
                 </div>
               )}
             </div>

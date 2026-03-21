@@ -76,7 +76,7 @@ function MapView() {
       category === 'photo' ? '#3b82f6' : // blue-500
       category === 'favorite' ? '#ec4899' : // pink-500
       category === 'must-visit' ? '#eab308' : // yellow-500
-      '#78716c'; // stone-500
+      '#78716c'; // slate-500
     
     const svg = `
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,14 +142,14 @@ function MapView() {
   }, [location.search, m.posts, m.pins]);
 
   return (
-    <div className="flex flex-col w-full h-screen bg-stone-100 font-sans overflow-hidden">
+    <div className="flex flex-col w-full h-screen bg-slate-100 font-sans overflow-hidden">
       <div className="relative flex-1 overflow-hidden">
         {/* Header */}
         <header className="absolute top-4 left-4 right-4 z-10 flex justify-between items-center pointer-events-none">
         <div className="flex items-center gap-2 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl shadow-lg border border-white/20 pointer-events-auto">
-          <MapIcon className="w-6 h-6 text-emerald-600" />
-          <span className="font-bold text-stone-800 tracking-tight mr-2">MapSNS</span>
-          <div className="w-px h-6 bg-stone-200 mx-1" />
+          <MapIcon className="w-6 h-6 text-brand-600" />
+          <span className="font-bold text-slate-800 tracking-tight mr-2">MapSNS</span>
+          <div className="w-px h-6 bg-slate-200 mx-1" />
           <button 
             onClick={() => {
               const nextState = !m.isSearchOpen;
@@ -161,7 +161,7 @@ function MapView() {
             }}
             className={cn(
               "p-1.5 rounded-xl transition-colors",
-              m.isSearchOpen ? "bg-emerald-100 text-emerald-600" : "text-stone-400 hover:bg-stone-100 hover:text-stone-600"
+              m.isSearchOpen ? "bg-brand-100 text-brand-600" : "text-slate-400 hover:bg-slate-100 hover:text-slate-600"
             )}
           >
             <Search className="w-5 h-5" />
@@ -201,7 +201,7 @@ function MapView() {
               <div className="flex items-center gap-2 px-3 py-1.5">
                 <button 
                   onClick={() => m.setIsNotificationsOpen(true)}
-                  className="relative p-2 hover:bg-stone-100 rounded-xl transition-colors text-stone-600"
+                  className="relative p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-600"
                 >
                   <Bell className="w-5 h-5" />
                   {m.notifications.filter(n => !n.isRead).length > 0 && (
@@ -210,26 +210,26 @@ function MapView() {
                 </button>
                 <button 
                   onClick={() => m.setIsProfileOpen(true)}
-                  className="flex items-center gap-2 hover:bg-stone-100 p-1 rounded-xl transition-colors"
+                  className="flex items-center gap-2 hover:bg-slate-100 p-1 rounded-xl transition-colors"
                 >
                   {m.user.profilePic ? (
                     <img 
                       src={m.user.profilePic} 
                       alt={m.user.name} 
-                      className="w-8 h-8 rounded-full object-cover border border-stone-200"
+                      className="w-8 h-8 rounded-full object-cover border border-slate-200"
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xs">
+                    <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center text-brand-700 font-bold text-xs">
                       {m.user.name[0]}
                     </div>
                   )}
-                  <span className="text-sm font-medium text-stone-700">{m.user.name}</span>
+                  <span className="text-sm font-medium text-slate-700">{m.user.name}</span>
                 </button>
               </div>
               <button 
                 onClick={m.logout}
-                className="p-2 hover:bg-stone-100 rounded-xl transition-colors text-stone-500"
+                className="p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-500"
               >
                 <LogOut className="w-5 h-5" />
               </button>
@@ -237,7 +237,7 @@ function MapView() {
           ) : (
             <button 
               onClick={() => m.setIsAuthModalOpen(true)}
-              className="bg-emerald-600 text-white px-5 py-2.5 rounded-2xl shadow-lg hover:bg-emerald-700 transition-all font-medium flex items-center gap-2"
+              className="bg-brand-600 text-white px-5 py-2.5 rounded-2xl shadow-lg hover:bg-brand-700 transition-all font-medium flex items-center gap-2"
             >
               <UserIcon className="w-4 h-4" />
               Login
@@ -310,7 +310,7 @@ function MapView() {
           <Polyline
             path={m.routePath}
             strokeWeight={5}
-            strokeColor="#10b981"
+            strokeColor="#338dff"
             strokeOpacity={0.8}
             strokeStyle="solid"
           />
@@ -336,8 +336,8 @@ function MapView() {
                 <div className={cn(
                   "flex items-center justify-center w-8 h-8 rounded-full border-2 border-white shadow-lg transition-all group-hover:scale-110",
                   isStart ? "bg-red-500 shadow-red-200" : 
-                  isEnd ? "bg-stone-800 shadow-stone-200" : 
-                  "bg-emerald-600 shadow-emerald-200"
+                  isEnd ? "bg-slate-800 shadow-slate-200" : 
+                  "bg-brand-600 shadow-brand-200"
                 )}>
                   {isStart ? (
                     <Navigation className="w-4 h-4 text-white fill-current" />
@@ -350,8 +350,8 @@ function MapView() {
                 <div className={cn(
                   "mt-1 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-tighter text-white shadow-sm whitespace-nowrap",
                   isStart ? "bg-red-500" : 
-                  isEnd ? "bg-stone-800" : 
-                  "bg-emerald-600"
+                  isEnd ? "bg-slate-800" : 
+                  "bg-brand-600"
                 )}>
                   {isStart ? "Start" : isEnd ? "Goal" : `Way ${idx}`}
                 </div>
@@ -402,10 +402,10 @@ function MapView() {
             />
             <CustomOverlayMap position={m.clickCoord} yAnchor={1} zIndex={30}>
               <div className="relative -translate-y-10 pointer-events-none flex flex-col items-center">
-                <div className="px-3 py-2 bg-white/95 backdrop-blur-sm rounded-full shadow-xl whitespace-nowrap border border-stone-200">
-                  <p className="text-[10px] font-bold text-stone-800 uppercase tracking-widest">Drag to adjust • Click to create</p>
+                <div className="px-3 py-2 bg-white/95 backdrop-blur-sm rounded-full shadow-xl whitespace-nowrap border border-slate-200">
+                  <p className="text-[10px] font-bold text-slate-800 uppercase tracking-widest">Drag to adjust • Click to create</p>
                 </div>
-                <div className="w-2 h-2 bg-white border-r border-b border-stone-200 rotate-45 -translate-y-1 shadow-sm" />
+                <div className="w-2 h-2 bg-white border-r border-b border-slate-200 rotate-45 -translate-y-1 shadow-sm" />
               </div>
             </CustomOverlayMap>
           </>
@@ -598,12 +598,12 @@ function MapView() {
             whileTap={{ scale: 0.95 }}
             onClick={() => m.setIsLayersOpen(!m.isLayersOpen)}
             className={cn(
-              "w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center transition-all border border-stone-100",
-              m.isLayersOpen ? "bg-emerald-600 text-white" : "bg-white text-stone-600 hover:text-emerald-600"
+              "w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center transition-all border border-slate-100",
+              m.isLayersOpen ? "bg-brand-600 text-white" : "bg-white text-slate-600 hover:text-brand-600"
             )}
           >
             <Layers className="w-6 h-6" />
-            <span className="absolute right-full mr-3 px-3 py-1.5 bg-stone-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 group-hover/layers:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            <span className="absolute right-full mr-3 px-3 py-1.5 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 group-hover/layers:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
               Map Layers
             </span>
           </motion.button>
@@ -614,15 +614,15 @@ function MapView() {
                 initial={{ opacity: 0, x: 10, scale: 0.9 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 10, scale: 0.9 }}
-                className="absolute bottom-0 right-full mr-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-stone-200 p-4 w-48"
+                className="absolute bottom-0 right-full mr-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200 p-4 w-48"
               >
-                <h3 className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-3">Visible Layers</h3>
+                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Visible Layers</h3>
                 <div className="space-y-2">
                   <button 
                     onClick={() => m.setShowPostsLayer(!m.showPostsLayer)}
                     className={cn(
                       "w-full flex items-center justify-between p-2.5 rounded-xl transition-all",
-                      m.showPostsLayer ? "bg-emerald-50 text-emerald-700" : "hover:bg-stone-50 text-stone-500"
+                      m.showPostsLayer ? "bg-brand-50 text-brand-700" : "hover:bg-slate-50 text-slate-500"
                     )}
                   >
                     <div className="flex items-center gap-2">
@@ -631,7 +631,7 @@ function MapView() {
                     </div>
                     <div className={cn(
                       "w-4 h-4 rounded-full border-2 transition-all flex items-center justify-center",
-                      m.showPostsLayer ? "border-emerald-600 bg-emerald-600" : "border-stone-300"
+                      m.showPostsLayer ? "border-brand-600 bg-brand-600" : "border-slate-300"
                     )}>
                       {m.showPostsLayer && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
@@ -641,7 +641,7 @@ function MapView() {
                     onClick={() => m.setShowPinsLayer(!m.showPinsLayer)}
                     className={cn(
                       "w-full flex items-center justify-between p-2.5 rounded-xl transition-all",
-                      m.showPinsLayer ? "bg-emerald-50 text-emerald-700" : "hover:bg-stone-50 text-stone-500"
+                      m.showPinsLayer ? "bg-brand-50 text-brand-700" : "hover:bg-slate-50 text-slate-500"
                     )}
                   >
                     <div className="flex items-center gap-2">
@@ -650,7 +650,7 @@ function MapView() {
                     </div>
                     <div className={cn(
                       "w-4 h-4 rounded-full border-2 transition-all flex items-center justify-center",
-                      m.showPinsLayer ? "border-emerald-600 bg-emerald-600" : "border-stone-300"
+                      m.showPinsLayer ? "border-brand-600 bg-brand-600" : "border-slate-300"
                     )}>
                       {m.showPinsLayer && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
@@ -661,16 +661,16 @@ function MapView() {
           </AnimatePresence>
         </div>
 
-        <div className="flex flex-col bg-white rounded-2xl shadow-xl border border-stone-100 overflow-hidden">
+        <div className="flex flex-col bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
           <button 
             onClick={() => map?.setLevel(map.getLevel() - 1, { animate: true })}
-            className="w-14 h-14 flex items-center justify-center text-stone-600 hover:bg-stone-50 transition-colors border-b border-stone-100"
+            className="w-14 h-14 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition-colors border-b border-slate-100"
           >
             <Plus className="w-6 h-6" />
           </button>
           <button 
             onClick={() => map?.setLevel(map.getLevel() + 1, { animate: true })}
-            className="w-14 h-14 flex items-center justify-center text-stone-600 hover:bg-stone-50 transition-colors"
+            className="w-14 h-14 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition-colors"
           >
             <Minus className="w-6 h-6" />
           </button>
@@ -681,12 +681,12 @@ function MapView() {
           whileTap={{ scale: 0.95 }}
           onClick={() => m.setIsCreationMode(!m.isCreationMode)}
           className={cn(
-            "w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center transition-all border border-stone-100 group relative",
-            m.isCreationMode ? "bg-emerald-600 text-white" : "bg-white text-stone-600 hover:text-emerald-600"
+            "w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center transition-all border border-slate-100 group relative",
+            m.isCreationMode ? "bg-brand-600 text-white" : "bg-white text-slate-600 hover:text-brand-600"
           )}
         >
           <PlusCircle className="w-6 h-6" />
-          <span className="absolute right-full mr-3 px-3 py-1.5 bg-stone-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+          <span className="absolute right-full mr-3 px-3 py-1.5 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
             {m.isCreationMode ? "Exit Creation Mode" : "Enter Creation Mode"}
           </span>
         </motion.button>
@@ -696,14 +696,14 @@ function MapView() {
           whileTap={{ scale: 0.95 }}
           onClick={handleRecenter}
           disabled={m.isLocating}
-          className="w-14 h-14 bg-white rounded-2xl shadow-xl flex items-center justify-center text-stone-600 hover:text-emerald-600 transition-colors border border-stone-100 group relative"
+          className="w-14 h-14 bg-white rounded-2xl shadow-xl flex items-center justify-center text-slate-600 hover:text-brand-600 transition-colors border border-slate-100 group relative"
         >
           {m.isLocating ? (
-            <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-brand-600 border-t-transparent rounded-full animate-spin" />
           ) : (
             <Crosshair className="w-6 h-6" />
           )}
-          <span className="absolute right-full mr-3 px-3 py-1.5 bg-stone-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+          <span className="absolute right-full mr-3 px-3 py-1.5 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
             Recenter
           </span>
         </motion.button>
@@ -714,11 +714,11 @@ function MapView() {
         <>
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
             <div className="relative">
-              <div className="w-12 h-12 border-2 border-emerald-600 rounded-full opacity-50 animate-pulse" />
+              <div className="w-12 h-12 border-2 border-brand-600 rounded-full opacity-50 animate-pulse" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-1 h-1 bg-emerald-600 rounded-full" />
-                <div className="absolute w-6 h-px bg-emerald-600" />
-                <div className="absolute h-6 w-px bg-emerald-600" />
+                <div className="w-1 h-1 bg-brand-600 rounded-full" />
+                <div className="absolute w-6 h-px bg-brand-600" />
+                <div className="absolute h-6 w-px bg-brand-600" />
               </div>
             </div>
           </div>
@@ -734,7 +734,7 @@ function MapView() {
                   m.setIsCreationMode(false);
                 }
               }}
-              className="px-8 py-4 bg-emerald-600 text-white rounded-full font-bold shadow-2xl shadow-emerald-900/40 flex items-center gap-3 hover:bg-emerald-700 transition-all"
+              className="px-8 py-4 bg-brand-600 text-white rounded-full font-bold shadow-2xl shadow-brand-900/40 flex items-center gap-3 hover:bg-brand-700 transition-all"
             >
               <MapPin className="w-5 h-5" />
               Drop Pin at Center
@@ -766,11 +766,11 @@ function MapView() {
             m.setSearchMarkers([]);
           }} 
         />
-        <div className="w-px h-8 bg-stone-200 mx-1" />
+        <div className="w-px h-8 bg-slate-200 mx-1" />
         <NavItem 
           icon={PlusCircle} 
           label="Share" 
-          className="bg-emerald-600 text-white hover:bg-emerald-700" 
+          className="bg-brand-600 text-white hover:bg-brand-700" 
           onClick={() => {
             if (!m.user) m.setIsAuthModalOpen(true);
             else {
@@ -779,7 +779,7 @@ function MapView() {
             }
           }} 
         />
-        <div className="w-px h-8 bg-stone-200 mx-1" />
+        <div className="w-px h-8 bg-slate-200 mx-1" />
         <NavItem 
           icon={MessageSquare} 
           label="Activity" 
@@ -799,7 +799,7 @@ function MapView() {
             m.setSearchResults([]);
           }} 
         />
-        <div className="w-px h-8 bg-stone-200 mx-1" />
+        <div className="w-px h-8 bg-slate-200 mx-1" />
         <NavItem 
           icon={LayoutList} 
           label="Feed" 
@@ -994,7 +994,7 @@ function MapView() {
             className={cn(
               "fixed bottom-24 left-1/2 z-[100] px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border backdrop-blur-md",
               m.toast.type === 'success' 
-                ? "bg-emerald-600/90 border-emerald-500 text-white" 
+                ? "bg-brand-600/90 border-brand-500 text-white" 
                 : "bg-red-600/90 border-red-500 text-white"
             )}
           >

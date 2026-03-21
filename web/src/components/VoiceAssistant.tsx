@@ -80,19 +80,19 @@ export const VoiceAssistant: React.FC = () => {
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Live Assistant</span>
+                <div className="w-2 h-2 bg-brand-500 rounded-full animate-pulse" />
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Live Assistant</span>
               </div>
               <button 
                 onClick={toggleAssistant}
-                className="p-1 hover:bg-stone-100 rounded-full text-stone-400 transition-colors"
+                className="p-1 hover:bg-slate-100 rounded-full text-slate-400 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="space-y-4">
-              <div className="h-32 overflow-y-auto custom-scrollbar text-sm text-stone-600 leading-relaxed italic">
+              <div className="h-32 overflow-y-auto custom-scrollbar text-sm text-slate-600 leading-relaxed italic">
                 {transcript || "I'm listening... How can I help you today?"}
               </div>
 
@@ -109,11 +109,11 @@ export const VoiceAssistant: React.FC = () => {
                         repeat: Infinity,
                         delay: i * 0.1,
                       }}
-                      className="w-1 bg-emerald-500 rounded-full"
+                      className="w-1 bg-brand-500 rounded-full"
                     />
                   ))}
                 </div>
-                <Volume2 className="w-4 h-4 text-emerald-600" />
+                <Volume2 className="w-4 h-4 text-brand-600" />
               </div>
             </div>
           </motion.div>
@@ -129,7 +129,7 @@ export const VoiceAssistant: React.FC = () => {
           "w-16 h-16 rounded-full shadow-2xl flex items-center justify-center transition-all border-4 border-white/20",
           isActive 
             ? "bg-red-500 text-white" 
-            : "bg-stone-800 text-white hover:bg-stone-900"
+            : "bg-slate-800 text-white hover:bg-slate-900"
         )}
       >
         {isConnecting ? (
@@ -139,7 +139,7 @@ export const VoiceAssistant: React.FC = () => {
         ) : (
           <div className="relative">
             <Mic className="w-8 h-8" />
-            <Sparkles className="absolute -top-2 -right-2 w-4 h-4 text-emerald-400 animate-pulse" />
+            <Sparkles className="absolute -top-2 -right-2 w-4 h-4 text-brand-400 animate-pulse" />
           </div>
         )}
       </motion.button>

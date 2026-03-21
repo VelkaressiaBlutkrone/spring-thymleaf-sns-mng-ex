@@ -59,7 +59,7 @@ export const PostModal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-stone-900/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
           <motion.div 
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -67,41 +67,41 @@ export const PostModal = ({
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             className="relative bg-white w-full max-w-md rounded-3xl shadow-2xl p-8"
           >
-            <h2 className="text-2xl font-bold text-stone-800 mb-1">Create New Post</h2>
+            <h2 className="text-2xl font-bold text-slate-800 mb-1">Create New Post</h2>
             {address ? (
-              <p className="text-xs text-emerald-600 font-medium mb-6">{address}</p>
+              <p className="text-xs text-brand-600 font-medium mb-6">{address}</p>
             ) : (
-              <p className="text-sm text-stone-400 mb-6">Confirm location and share your story</p>
+              <p className="text-sm text-slate-400 mb-6">Confirm location and share your story</p>
             )}
             
             <form onSubmit={onSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">Latitude</label>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Latitude</label>
                   <input 
                     type="number" 
                     step="any"
                     value={clickCoord?.lat || ''}
                     onChange={(e) => setClickCoord(prev => prev ? { ...prev, lat: parseFloat(e.target.value) } : null)}
-                    className="w-full px-4 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">Longitude</label>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Longitude</label>
                   <input 
                     type="number" 
                     step="any"
                     value={clickCoord?.lng || ''}
                     onChange={(e) => setClickCoord(prev => prev ? { ...prev, lng: parseFloat(e.target.value) } : null)}
-                    className="w-full px-4 py-2 bg-stone-50 border border-stone-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">Category</label>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Category</label>
                 <div className="grid grid-cols-3 gap-2">
                   {CATEGORIES.map((cat) => (
                     <button
@@ -111,8 +111,8 @@ export const PostModal = ({
                       className={cn(
                         "flex items-center gap-2 p-2 rounded-xl border transition-all",
                         category === cat.id 
-                          ? "bg-emerald-50 border-emerald-200 text-emerald-600" 
-                          : "bg-white border-stone-100 hover:border-stone-200 text-stone-400"
+                          ? "bg-brand-50 border-brand-200 text-brand-600" 
+                          : "bg-white border-slate-100 hover:border-slate-200 text-slate-400"
                       )}
                     >
                       <div className={cn(
@@ -130,18 +130,18 @@ export const PostModal = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">Content</label>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Content</label>
                 <textarea 
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none transition-all min-h-[120px]"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-brand-500 outline-none transition-all min-h-[120px]"
                   placeholder="What's on your mind?"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-1">Image</label>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Image</label>
                 <input 
                   type="file"
                   ref={fileInputRef}
@@ -151,7 +151,7 @@ export const PostModal = ({
                 />
                 
                 {imageUrl ? (
-                  <div className="relative rounded-2xl overflow-hidden aspect-video bg-stone-100 border border-stone-200 group">
+                  <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-100 border border-slate-200 group">
                     <img 
                       src={imageUrl} 
                       alt="Preview" 
@@ -170,7 +170,7 @@ export const PostModal = ({
                   <button 
                     type="button"
                     onClick={triggerFileInput}
-                    className="w-full aspect-video flex flex-col items-center justify-center gap-3 bg-stone-50 border-2 border-dashed border-stone-200 rounded-2xl text-stone-400 hover:bg-stone-100 hover:border-emerald-500 hover:text-emerald-500 transition-all group"
+                    className="w-full aspect-video flex flex-col items-center justify-center gap-3 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl text-slate-400 hover:bg-slate-100 hover:border-brand-500 hover:text-brand-500 transition-all group"
                   >
                     <div className="p-4 bg-white rounded-2xl shadow-sm group-hover:scale-110 transition-transform">
                       <Upload className="w-6 h-6" />
@@ -180,12 +180,12 @@ export const PostModal = ({
                 )}
                 
                 <div className="mt-2">
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Or use Image URL</label>
+                  <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Or use Image URL</label>
                   <input 
                     type="text" 
                     value={imageUrl.startsWith('data:') ? '' : imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
-                    className="w-full px-4 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500"
                     placeholder="https://..."
                   />
                 </div>
@@ -195,13 +195,13 @@ export const PostModal = ({
                 <button 
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-4 bg-stone-100 text-stone-600 rounded-2xl font-bold hover:bg-stone-200 transition-all"
+                  className="flex-1 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all"
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit"
-                  className="flex-1 py-4 bg-emerald-600 text-white rounded-2xl font-bold shadow-lg hover:bg-emerald-700 transition-all"
+                  className="flex-1 py-4 bg-brand-600 text-white rounded-2xl font-bold shadow-lg hover:bg-brand-700 transition-all"
                 >
                   Post
                 </button>

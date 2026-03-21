@@ -65,7 +65,7 @@ export const ProfileModal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-stone-900/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
           <motion.div 
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -74,7 +74,7 @@ export const ProfileModal = ({
             className="relative bg-white w-full max-w-2xl h-[80vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col"
           >
             {/* Profile Header */}
-            <div className="p-8 bg-emerald-600 text-white relative">
+            <div className="p-8 bg-brand-600 text-white relative">
               <button 
                 onClick={onClose}
                 className="absolute top-6 right-6 p-2 hover:bg-white/20 rounded-full transition-colors"
@@ -92,7 +92,7 @@ export const ProfileModal = ({
                   </div>
                   <button 
                     onClick={onEdit}
-                    className="absolute bottom-0 right-0 p-2 bg-white shadow-lg rounded-xl text-stone-600 hover:text-emerald-600 transition-all hover:scale-110"
+                    className="absolute bottom-0 right-0 p-2 bg-white shadow-lg rounded-xl text-slate-600 hover:text-brand-600 transition-all hover:scale-110"
                   >
                     <Edit className="w-4 h-4" />
                   </button>
@@ -114,13 +114,13 @@ export const ProfileModal = ({
                   <div className="flex gap-4 mt-1">
                     <button 
                       onClick={() => openFollowModal('followers')}
-                      className="text-sm text-emerald-100 opacity-80 hover:opacity-100 transition-opacity"
+                      className="text-sm text-brand-100 opacity-80 hover:opacity-100 transition-opacity"
                     >
                       <b>{user.followersCount || 0}</b> Followers
                     </button>
                     <button 
                       onClick={() => openFollowModal('following')}
-                      className="text-sm text-emerald-100 opacity-80 hover:opacity-100 transition-opacity"
+                      className="text-sm text-brand-100 opacity-80 hover:opacity-100 transition-opacity"
                     >
                       <b>{user.followingCount || 0}</b> Following
                     </button>
@@ -130,12 +130,12 @@ export const ProfileModal = ({
             </div>
 
             {/* Profile Content */}
-            <div className="flex-1 overflow-y-auto p-8 bg-stone-50">
+            <div className="flex-1 overflow-y-auto p-8 bg-slate-50">
               <div className="space-y-8">
                 {/* Bio Section */}
                 <div>
-                  <label className="block text-[10px] font-bold text-stone-400 uppercase tracking-wider mb-2">Bio</label>
-                  <p className="text-stone-600 text-sm leading-relaxed bg-white p-4 rounded-2xl border border-stone-100">
+                  <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Bio</label>
+                  <p className="text-slate-600 text-sm leading-relaxed bg-white p-4 rounded-2xl border border-slate-100">
                     {user.bio || "No bio yet. Tell us about yourself!"}
                   </p>
                 </div>
@@ -143,11 +143,11 @@ export const ProfileModal = ({
                 {/* Posts Section */}
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-stone-800 flex items-center gap-2">
-                      <MessageSquare className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                      <MessageSquare className="w-5 h-5 text-brand-600" />
                       My Posts
                     </h3>
-                    <span className="bg-stone-200 text-stone-600 px-3 py-1 rounded-full text-xs font-bold">
+                    <span className="bg-slate-200 text-slate-600 px-3 py-1 rounded-full text-xs font-bold">
                       {userPosts.length} Posts
                     </span>
                   </div>
@@ -157,7 +157,7 @@ export const ProfileModal = ({
                       userPosts.map(post => (
                         <div 
                           key={post.id} 
-                          className="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden group hover:shadow-md transition-shadow cursor-pointer"
+                          className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden group hover:shadow-md transition-shadow cursor-pointer"
                           onClick={() => onPostClick(post)}
                         >
                           <img 
@@ -167,8 +167,8 @@ export const ProfileModal = ({
                             referrerPolicy="no-referrer"
                           />
                           <div className="p-4">
-                            <p className="text-sm text-stone-600 line-clamp-2 mb-2">{post.content}</p>
-                            <div className="flex items-center justify-between text-[10px] text-stone-400">
+                            <p className="text-sm text-slate-600 line-clamp-2 mb-2">{post.content}</p>
+                            <div className="flex items-center justify-between text-[10px] text-slate-400">
                               <div className="flex flex-col gap-1">
                                 <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                                 <div className="flex items-center gap-1">
@@ -204,7 +204,7 @@ export const ProfileModal = ({
                         </div>
                       ))
                     ) : (
-                      <div className="col-span-full py-8 text-center text-stone-400 bg-white rounded-2xl border border-dashed border-stone-200">
+                      <div className="col-span-full py-8 text-center text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">
                         <ImageIcon className="w-10 h-10 mx-auto mb-2 opacity-20" />
                         <p className="text-sm">No stories shared yet.</p>
                       </div>
@@ -215,11 +215,11 @@ export const ProfileModal = ({
                 {/* Pins Section */}
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-stone-800 flex items-center gap-2">
-                      <Navigation className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                      <Navigation className="w-5 h-5 text-brand-600" />
                       My Pins
                     </h3>
-                    <span className="bg-stone-200 text-stone-600 px-3 py-1 rounded-full text-xs font-bold">
+                    <span className="bg-slate-200 text-slate-600 px-3 py-1 rounded-full text-xs font-bold">
                       {userPins.length} Pins
                     </span>
                   </div>
@@ -229,16 +229,16 @@ export const ProfileModal = ({
                       userPins.map(pin => (
                         <div 
                           key={pin.id} 
-                          className="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 group hover:shadow-md transition-shadow cursor-pointer flex items-center justify-between"
+                          className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 group hover:shadow-md transition-shadow cursor-pointer flex items-center justify-between"
                           onClick={() => onPinClick(pin)}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center">
-                              <Navigation className="w-4 h-4 text-emerald-600" />
+                            <div className="w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center">
+                              <Navigation className="w-4 h-4 text-brand-600" />
                             </div>
                             <div>
-                              <h4 className="text-sm font-bold text-stone-800">{pin.title}</h4>
-                              <p className="text-[10px] text-stone-400">{pin.lat.toFixed(4)}, {pin.lng.toFixed(4)}</p>
+                              <h4 className="text-sm font-bold text-slate-800">{pin.title}</h4>
+                              <p className="text-[10px] text-slate-400">{pin.lat.toFixed(4)}, {pin.lng.toFixed(4)}</p>
                             </div>
                           </div>
                           <button 
@@ -258,14 +258,14 @@ export const ProfileModal = ({
                                 }
                               });
                             }}
-                            className="p-2 text-stone-300 hover:text-red-500 transition-colors"
+                            className="p-2 text-slate-300 hover:text-red-500 transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                       ))
                     ) : (
-                      <div className="col-span-full py-8 text-center text-stone-400 bg-white rounded-2xl border border-dashed border-stone-200">
+                      <div className="col-span-full py-8 text-center text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">
                         <Navigation className="w-10 h-10 mx-auto mb-2 opacity-20" />
                         <p className="text-sm">No pins saved yet.</p>
                       </div>

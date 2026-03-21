@@ -59,21 +59,21 @@ export const PostOverlay = ({
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl shadow-2xl border border-stone-200 p-3 w-64 -translate-x-1/2 -translate-y-12 relative"
+      className="bg-white rounded-2xl shadow-2xl border border-slate-200 p-3 w-64 -translate-x-1/2 -translate-y-12 relative"
     >
       <div className="flex justify-between items-start mb-2">
         <button 
           onClick={() => onViewUser(post.userId)}
-          className="flex items-center gap-2 hover:bg-stone-50 p-1 rounded-xl transition-colors group"
+          className="flex items-center gap-2 hover:bg-slate-50 p-1 rounded-xl transition-colors group"
         >
-          <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-[10px] text-emerald-700 font-bold">
+          <div className="w-6 h-6 rounded-full bg-brand-100 flex items-center justify-center text-[10px] text-brand-700 font-bold">
             {post.userName[0]}
           </div>
-          <span className="text-xs font-bold text-stone-800 group-hover:text-emerald-600 transition-colors">{post.userName}</span>
+          <span className="text-xs font-bold text-slate-800 group-hover:text-brand-600 transition-colors">{post.userName}</span>
         </button>
         <button 
           onClick={onClose} 
-          className="text-stone-400 hover:text-stone-600"
+          className="text-slate-400 hover:text-slate-600"
         >
           <X className="w-4 h-4" />
         </button>
@@ -82,7 +82,7 @@ export const PostOverlay = ({
       {isEditing ? (
         <div className="space-y-3">
           <div>
-            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Image</label>
+            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Image</label>
             <input 
               type="file"
               ref={fileInputRef}
@@ -91,7 +91,7 @@ export const PostOverlay = ({
               className="hidden"
             />
             
-            <div className="relative rounded-xl overflow-hidden aspect-video bg-stone-50 border border-stone-200 group mb-2">
+            <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-50 border border-slate-200 group mb-2">
               {editImageUrl ? (
                 <img 
                   src={editImageUrl} 
@@ -100,7 +100,7 @@ export const PostOverlay = ({
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-stone-300">
+                <div className="w-full h-full flex items-center justify-center text-slate-300">
                   <ImageIcon className="w-8 h-8" />
                 </div>
               )}
@@ -118,12 +118,12 @@ export const PostOverlay = ({
               type="text"
               value={editImageUrl.startsWith('data:') ? '' : editImageUrl}
               onChange={(e) => setEditImageUrl(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-[10px] focus:ring-2 focus:ring-emerald-500 outline-none"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-[10px] focus:ring-2 focus:ring-brand-500 outline-none"
               placeholder="Or paste URL..."
             />
           </div>
           <div>
-            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Category</label>
+            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Category</label>
             <div className="grid grid-cols-3 gap-1.5">
               {CATEGORIES.map((cat) => (
                 <button
@@ -133,8 +133,8 @@ export const PostOverlay = ({
                   className={cn(
                     "flex items-center gap-1 p-1.5 rounded-lg border transition-all",
                     editCategory === cat.id 
-                      ? "bg-emerald-50 border-emerald-200 text-emerald-600" 
-                      : "bg-white border-stone-100 text-stone-400"
+                      ? "bg-brand-50 border-brand-200 text-brand-600" 
+                      : "bg-white border-slate-100 text-slate-400"
                   )}
                 >
                   <div className={cn("w-2 h-2 rounded-full", cat.color)} />
@@ -144,11 +144,11 @@ export const PostOverlay = ({
             </div>
           </div>
           <div>
-            <label className="block text-[10px] font-bold text-stone-400 uppercase mb-1">Content</label>
+            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Content</label>
             <textarea 
               value={editContent}
               onChange={(e) => setEditContent(e.target.value)}
-              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs h-20 resize-none focus:ring-2 focus:ring-emerald-500 outline-none"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs h-20 resize-none focus:ring-2 focus:ring-brand-500 outline-none"
               placeholder="What's the story?"
             />
           </div>
@@ -156,7 +156,7 @@ export const PostOverlay = ({
             <button 
               onClick={onUpdate}
               disabled={isUpdating}
-              className="flex-1 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 py-2 bg-brand-600 text-white rounded-xl text-xs font-bold hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isUpdating && <Loader2 className="w-3 h-3 animate-spin" />}
               {isUpdating ? "Saving..." : "Save Changes"}
@@ -164,7 +164,7 @@ export const PostOverlay = ({
             <button 
               onClick={() => setIsEditing(false)}
               disabled={isUpdating}
-              className="px-4 py-2 bg-stone-100 text-stone-600 rounded-xl text-xs font-bold hover:bg-stone-200 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold hover:bg-slate-200 transition-colors disabled:opacity-50"
             >
               Cancel
             </button>
@@ -172,7 +172,7 @@ export const PostOverlay = ({
         </div>
       ) : (
         <>
-          <div className="rounded-xl overflow-hidden mb-3 bg-stone-100 aspect-video relative group">
+          <div className="rounded-xl overflow-hidden mb-3 bg-slate-100 aspect-video relative group">
             <img 
               src={post.imageUrl} 
               alt="" 
@@ -182,20 +182,20 @@ export const PostOverlay = ({
             {post.category && post.category !== 'default' && (
               <div className={cn(
                 "absolute top-2 left-2 px-2 py-1 rounded-lg text-[8px] font-black text-white uppercase tracking-widest shadow-lg",
-                CATEGORIES.find(c => c.id === post.category)?.color || "bg-stone-500"
+                CATEGORIES.find(c => c.id === post.category)?.color || "bg-slate-500"
               )}>
                 {CATEGORIES.find(c => c.id === post.category)?.label}
               </div>
             )}
           </div>
-          <p className="text-xs text-stone-600 leading-relaxed mb-3 line-clamp-3">{post.content}</p>
-          <div className="flex items-center justify-between pt-2 border-t border-stone-100">
+          <p className="text-xs text-slate-600 leading-relaxed mb-3 line-clamp-3">{post.content}</p>
+          <div className="flex items-center justify-between pt-2 border-t border-slate-100">
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => onLike(post.id)}
                 className={cn(
                   "flex items-center gap-1 transition-colors group",
-                  post.isLiked ? "text-red-500" : "text-stone-400 hover:text-red-500"
+                  post.isLiked ? "text-red-500" : "text-slate-400 hover:text-red-500"
                 )}
               >
                 <Heart className={cn("w-4 h-4 transition-transform group-active:scale-125", post.isLiked && "fill-current")} />
@@ -203,12 +203,12 @@ export const PostOverlay = ({
               </button>
               <button 
                 onClick={() => onShare(post.id, post.lat, post.lng)}
-                className="text-stone-400 hover:text-emerald-600 transition-colors"
+                className="text-slate-400 hover:text-brand-600 transition-colors"
                 title="Share Story"
               >
                 <Share2 className="w-4 h-4" />
               </button>
-              <span className="text-[10px] text-stone-400">{new Date(post.createdAt).toLocaleDateString()}</span>
+              <span className="text-[10px] text-slate-400">{new Date(post.createdAt).toLocaleDateString()}</span>
             </div>
             {currentUser?.id === post.userId && (
               <button 
@@ -218,7 +218,7 @@ export const PostOverlay = ({
                   setEditCategory(post.category || 'default');
                   setIsEditing(true);
                 }}
-                className="text-[10px] font-bold text-emerald-600 hover:text-emerald-700"
+                className="text-[10px] font-bold text-brand-600 hover:text-brand-700"
               >
                 Edit Story
               </button>
@@ -227,7 +227,7 @@ export const PostOverlay = ({
         </>
       )}
       {/* Arrow */}
-      <div className="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-stone-200 rotate-45" />
+      <div className="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-slate-200 rotate-45" />
     </motion.div>
   );
 };

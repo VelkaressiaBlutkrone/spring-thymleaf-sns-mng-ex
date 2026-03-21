@@ -17,7 +17,7 @@ export const NavItem = ({ icon: Icon, label, onClick, active, className }: NavIt
         onClick={onClick}
         className={cn(
           "p-3 rounded-2xl transition-all flex items-center gap-2",
-          active ? "bg-emerald-600 text-white shadow-lg" : "text-stone-500 hover:bg-stone-100",
+          active ? "bg-brand-600 text-white shadow-lg" : "text-slate-500 hover:bg-slate-100",
           className
         )}
       >

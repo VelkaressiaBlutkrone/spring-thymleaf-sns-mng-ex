@@ -17,6 +17,7 @@ interface ProfileModalProps {
   onPostClick: (post: Post) => void;
   onPinClick: (pin: Pin) => void;
   fetchData: () => void;
+  showToast: (message: string, type?: 'success' | 'error') => void;
 }
 
 export const ProfileModal = ({
@@ -28,7 +29,8 @@ export const ProfileModal = ({
   onEdit,
   onPostClick,
   onPinClick,
-  fetchData
+  fetchData,
+  showToast
 }: ProfileModalProps) => {
   const navigate = useNavigate();
   const [isFollowModalOpen, setIsFollowModalOpen] = useState(false);
@@ -189,7 +191,7 @@ export const ProfileModal = ({
                                           await api.delete(`/posts/${post.id}`);
                                           fetchData();
                                         } catch (e) {
-                                          alert("Failed to delete post");
+                                          showToast("Failed to delete post", 'error');
                                         }
                                       }
                                     });
@@ -253,7 +255,7 @@ export const ProfileModal = ({
                                     await api.delete(`/pins/${pin.id}`);
                                     fetchData();
                                   } catch (e) {
-                                    alert("Failed to delete pin");
+                                    showToast("Failed to delete pin", 'error');
                                   }
                                 }
                               });

@@ -27,7 +27,7 @@ export const VoiceAssistant: React.FC = () => {
       try {
         const apiKey = process.env.GEMINI_API_KEY || '';
         if (!apiKey) {
-          alert("Gemini API Key is missing. Please check your environment variables.");
+          console.error("Gemini API Key is missing. Please check your environment variables.");
           setIsConnecting(false);
           return;
         }
@@ -55,7 +55,7 @@ export const VoiceAssistant: React.FC = () => {
         setIsListening(true);
       } catch (err) {
         console.error(err);
-        alert("Failed to connect to Voice Assistant.");
+        console.error("Failed to connect to Voice Assistant.");
       } finally {
         setIsConnecting(false);
       }

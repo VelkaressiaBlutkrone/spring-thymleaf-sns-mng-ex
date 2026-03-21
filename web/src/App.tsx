@@ -955,6 +955,7 @@ function MapView() {
           m.setIsProfileOpen(false);
         }}
         fetchData={m.fetchData}
+        showToast={m.showToast}
       />
 
       <ProfileEditModal 

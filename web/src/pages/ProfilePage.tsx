@@ -86,7 +86,7 @@ export const ProfilePage = () => {
       setIsFollowing(true);
       setUser(prev => prev ? { ...prev, followersCount: (prev.followersCount || 0) + 1 } : null);
     } catch (e) {
-      alert("Failed to follow user");
+      console.error("Failed to follow user");
     }
   };
 
@@ -97,7 +97,7 @@ export const ProfilePage = () => {
       setIsFollowing(false);
       setUser(prev => prev ? { ...prev, followersCount: Math.max(0, (prev.followersCount || 0) - 1) } : null);
     } catch (e) {
-      alert("Failed to unfollow user");
+      console.error("Failed to unfollow user");
     }
   };
 

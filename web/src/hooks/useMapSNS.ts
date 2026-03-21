@@ -173,14 +173,14 @@ export const useMapSNS = () => {
         setIsAuthModalOpen(false);
       } else {
         await api.post('/members', { email, password, nickname: name });
-        alert("Registration successful! Please log in.");
+        showToast("Registration successful! Please log in.");
         setAuthMode('login');
         setPassword('');
       }
     } catch (error: any) {
       const data = error.response?.data;
       const message = data?.message || data?.error || "Authentication failed";
-      alert(message);
+      showToast(message, 'error');
       setPassword('');
     }
   };
@@ -206,7 +206,7 @@ export const useMapSNS = () => {
       setPostCategory('default');
       fetchData();
     } catch (error: any) {
-      alert(error.response?.data?.error || "Post failed");
+      showToast(error.response?.data?.message || error.response?.data?.error || "Post failed", 'error');
     }
   };
 
@@ -232,7 +232,7 @@ export const useMapSNS = () => {
       fetchData();
     } catch (error: any) {
       const data = error.response?.data;
-      alert(data?.message || data?.error || "Failed to create pin");
+      showToast(data?.message || data?.error || "Failed to create pin", 'error');
     }
   };
 
@@ -249,7 +249,7 @@ export const useMapSNS = () => {
       await fetchData();
       setSelectedPost({ ...selectedPost, content: editContent, imageUrl: editImageUrl, category: editCategory });
     } catch (e) {
-      alert("Failed to update post");
+      showToast("Failed to update post", 'error');
     } finally {
       setIsUpdatingPost(false);
     }
@@ -265,9 +265,9 @@ export const useMapSNS = () => {
       });
       setAuth(token!, { ...user!, name: profileName, bio: profileBio, profilePic });
       setIsProfileEditModalOpen(false);
-      alert("Profile updated successfully!");
+      showToast("Profile updated successfully!");
     } catch (error) {
-      alert("Failed to update profile");
+      showToast("Failed to update profile", 'error');
     }
   };
 
@@ -374,10 +374,10 @@ export const useMapSNS = () => {
         duration: routeInfo.duration,
         transportMode
       });
-      alert("Route saved successfully!");
+      showToast("Route saved successfully!");
       fetchSavedRoutes();
     } catch (e) {
-      alert("Failed to save route");
+      showToast("Failed to save route", 'error');
     } finally {
       setIsSavingRoute(false);
     }
@@ -388,7 +388,7 @@ export const useMapSNS = () => {
       await api.delete(`/saved-routes/${id}`);
       fetchSavedRoutes();
     } catch (e) {
-      alert("Failed to delete route");
+      showToast("Failed to delete route", 'error');
     }
   };
 
@@ -407,7 +407,7 @@ export const useMapSNS = () => {
       const res = await api.get(`/users/${userId}`);
       setViewingUser(res.data);
     } catch (e) {
-      alert("Failed to follow user");
+      showToast("Failed to follow user", 'error');
     }
   };
 
@@ -418,7 +418,7 @@ export const useMapSNS = () => {
       const res = await api.get(`/users/${userId}`);
       setViewingUser(res.data);
     } catch (e) {
-      alert("Failed to unfollow user");
+      showToast("Failed to unfollow user", 'error');
     }
   };
 
@@ -513,7 +513,7 @@ export const useMapSNS = () => {
         }
       );
     } else {
-      alert("Geolocation is not supported by your browser.");
+      showToast("Geolocation is not supported by your browser.", 'error');
     }
   }, []);
 

@@ -112,23 +112,34 @@ export const useMapSNS = () => {
       setPosts(Array.isArray(postsData) ? postsData : postsData.content ?? []);
 
       if (token) {
-        const [pinsRes, followingRes, notificationsRes, likesRes] = await Promise.all([
-          api.get('/pins'),
-          api.get('/profile/following-ids'),
-          api.get('/notifications'),
-          api.get('/profile/liked-post-ids')
-        ]);
-        const pinsData = pinsRes.data;
-        setPins(Array.isArray(pinsData) ? pinsData : pinsData.content ?? []);
-        setFollowingIds(followingRes.data);
-        const notiData = notificationsRes.data;
-        setNotifications(Array.isArray(notiData) ? notiData : notiData.content ?? []);
+        try {
+          const [pinsRes, followingRes, notificationsRes, likesRes] = await Promise.all([
+            api.get('/pins'),
+            api.get('/profile/following-ids'),
+            api.get('/notifications'),
+            api.get('/profile/liked-post-ids')
+          ]);
+          const pinsData = pinsRes.data;
+          setPins(Array.isArray(pinsData) ? pinsData : pinsData.content ?? []);
+          setFollowingIds(followingRes.data);
+          const notiData = notificationsRes.data;
+          setNotifications(Array.isArray(notiData) ? notiData : notiData.content ?? []);
 
-        const likedPostIds = likesRes.data;
-        setPosts(prev => prev.map(p => ({
-          ...p,
-          isLiked: likedPostIds.includes(p.id)
-        })));
+          const likedPostIds = likesRes.data;
+          setPosts(prev => prev.map(p => ({
+            ...p,
+            isLiked: likedPostIds.includes(p.id)
+          })));
+        } catch (authError: any) {
+          if (authError.response?.status === 401) {
+            // 토큰 만료 — 인증 상태 정리 (인터셉터가 이미 logout 호출)
+            setPins([]);
+            setFollowingIds([]);
+            setNotifications([]);
+          } else {
+            console.error("Failed to fetch authenticated data", authError);
+          }
+        }
       } else {
         setPins([]);
         setFollowingIds([]);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,13 +25,16 @@ public interface ImagePostRepository extends JpaRepository<ImagePost, Long> {
     /**
      * Pin에 연결된 이미지 게시글 목록. Step 12: 지도 Pin 클릭 시.
      */
+    @EntityGraph(attributePaths = {"author"})
     Page<ImagePost> findByPin_Id(Long pinId, Pageable pageable);
 
     /**
      * 제목 또는 내용에 키워드 포함 검색. 키워드 없으면 전체 조회.
      */
+    @EntityGraph(attributePaths = {"author"})
     Page<ImagePost> findByTitleContainingOrContentContaining(String titleKeyword, String contentKeyword, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"author"})
     Page<ImagePost> findByAuthor(User author, Pageable pageable);
 
     default Page<ImagePost> findAllByKeyword(String keyword, Pageable pageable) {

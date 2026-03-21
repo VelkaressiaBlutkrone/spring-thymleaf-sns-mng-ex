@@ -1,7 +1,8 @@
 package com.example.sns.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,13 +37,12 @@ public class NotificationService {
         notificationRepository.save(new Notification(user, type, fromUser, postId));
     }
 
-    public List<NotificationResponse> getByUser(Long userId) {
+    public Page<NotificationResponse> getByUser(Long userId, Pageable pageable) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND));
 
-        return notificationRepository.findByUserOrderByCreatedAtDesc(user).stream()
-                .map(NotificationResponse::from)
-                .toList();
+        return notificationRepository.findByUserOrderByCreatedAtDesc(user, pageable)
+                .map(NotificationResponse::from);
     }
 
     @Transactional

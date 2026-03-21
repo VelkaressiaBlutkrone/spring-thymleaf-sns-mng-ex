@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -48,6 +49,7 @@ public class SecurityConfig {
     /** H2 콘솔 전용: 인라인 스크립트 허용(CSP 완화). No Javascript 메시지 방지. */
     @Bean
     @Order(1)
+    @Profile("dev")
     public SecurityFilterChain h2ConsoleSecurityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/h2-console", "/h2-console/**")
                 .headers(headers -> headers

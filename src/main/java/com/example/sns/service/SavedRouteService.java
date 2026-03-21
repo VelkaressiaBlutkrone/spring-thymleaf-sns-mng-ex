@@ -1,7 +1,7 @@
 package com.example.sns.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,13 +42,12 @@ public class SavedRouteService {
         return SavedRouteResponse.from(savedRouteRepository.save(route));
     }
 
-    public List<SavedRouteResponse> getByUser(Long userId) {
+    public Page<SavedRouteResponse> getByUser(Long userId, Pageable pageable) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND));
 
-        return savedRouteRepository.findByUserOrderByCreatedAtDesc(user).stream()
-                .map(SavedRouteResponse::from)
-                .toList();
+        return savedRouteRepository.findByUserOrderByCreatedAtDesc(user, pageable)
+                .map(SavedRouteResponse::from);
     }
 
     @Transactional

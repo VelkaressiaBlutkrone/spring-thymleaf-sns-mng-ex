@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,16 +25,19 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     /**
      * 작성자별 게시글 목록. Step 14: 마이페이지 내 게시글.
      */
+    @EntityGraph(attributePaths = {"author"})
     Page<Post> findByAuthor(User author, Pageable pageable);
 
     /**
      * Pin에 연결된 게시글 목록. Step 12: 지도 Pin 클릭 시 관련 글 표시.
      */
+    @EntityGraph(attributePaths = {"author"})
     Page<Post> findByPin_Id(Long pinId, Pageable pageable);
 
     /**
      * 제목 또는 내용에 키워드 포함 검색. 키워드 없으면 전체 조회.
      */
+    @EntityGraph(attributePaths = {"author"})
     Page<Post> findByTitleContainingOrContentContaining(String titleKeyword, String contentKeyword, Pageable pageable);
 
     default Page<Post> findAllByKeyword(String keyword, Pageable pageable) {

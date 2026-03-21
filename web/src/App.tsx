@@ -909,12 +909,14 @@ function MapView() {
         }}
       />
 
-      <PostModal 
+      <PostModal
         isOpen={m.isPostModalOpen}
         onClose={() => m.setIsPostModalOpen(false)}
         clickCoord={m.clickCoord}
         setClickCoord={m.setClickCoord}
         address={m.clickAddress}
+        postTitle={m.postTitle}
+        setPostTitle={m.setPostTitle}
         content={m.content}
         setContent={m.setContent}
         imageUrl={m.imageUrl}

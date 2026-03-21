@@ -10,6 +10,8 @@ interface PostModalProps {
   clickCoord: { lat: number, lng: number } | null;
   setClickCoord: React.Dispatch<React.SetStateAction<{ lat: number, lng: number } | null>>;
   address?: string;
+  postTitle: string;
+  setPostTitle: (title: string) => void;
   content: string;
   setContent: (content: string) => void;
   imageUrl: string;
@@ -25,6 +27,8 @@ export const PostModal = ({
   clickCoord,
   setClickCoord,
   address,
+  postTitle,
+  setPostTitle,
   content,
   setContent,
   imageUrl,
@@ -98,6 +102,18 @@ export const PostModal = ({
                     required
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Title</label>
+                <input
+                  type="text"
+                  value={postTitle}
+                  onChange={(e) => setPostTitle(e.target.value)}
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-500"
+                  placeholder="Give your post a title"
+                  required
+                />
               </div>
 
               <div>

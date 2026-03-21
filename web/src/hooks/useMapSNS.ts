@@ -57,6 +57,7 @@ export const useMapSNS = () => {
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [postCategory, setPostCategory] = useState('default');
+  const [postTitle, setPostTitle] = useState('');
   const [pinTitle, setPinTitle] = useState('');
   const [pinDescription, setPinDescription] = useState('');
   const [pinCategory, setPinCategory] = useState('default');
@@ -194,13 +195,15 @@ export const useMapSNS = () => {
     if (!clickCoord) return;
     try {
       await api.post('/posts', {
+        title: postTitle || 'Untitled',
         content,
         imageUrl: imageUrl || `https://picsum.photos/seed/${Math.random()}/400/300`,
         category: postCategory,
-        lat: clickCoord.lat,
-        lng: clickCoord.lng
+        latitude: clickCoord.lat,
+        longitude: clickCoord.lng
       });
       setIsPostModalOpen(false);
+      setPostTitle('');
       setContent('');
       setImageUrl('');
       setPostCategory('default');
@@ -751,7 +754,7 @@ export const useMapSNS = () => {
     showPinsLayer, setShowPinsLayer,
     selectedPlace, setSelectedPlace, isResolvingPlace, placeRouteInfo,
     email, setEmail, password, setPassword, name, setName,
-    content, setContent, imageUrl, setImageUrl, postCategory, setPostCategory, pinTitle, setPinTitle,
+    postTitle, setPostTitle, content, setContent, imageUrl, setImageUrl, postCategory, setPostCategory, pinTitle, setPinTitle,
     pinDescription, setPinDescription, pinCategory, setPinCategory,
     profileName, setProfileName, profileBio, setProfileBio, profilePic, setProfilePic,
     searchKeyword, setSearchKeyword, isSearching, searchResults, setSearchResults,

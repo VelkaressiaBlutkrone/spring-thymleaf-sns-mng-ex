@@ -679,7 +679,13 @@ function MapView() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => m.setIsCreationMode(!m.isCreationMode)}
+          onClick={() => {
+            if (!m.user) {
+              m.setIsAuthModalOpen(true);
+              return;
+            }
+            m.setIsCreationMode(!m.isCreationMode);
+          }}
           className={cn(
             "w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center transition-all border border-slate-100 group relative",
             m.isCreationMode ? "bg-brand-600 text-white" : "bg-white text-slate-600 hover:text-brand-600"

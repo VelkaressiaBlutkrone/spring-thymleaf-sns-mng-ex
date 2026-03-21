@@ -177,12 +177,9 @@ export const useMapSNS = () => {
         setPassword('');
       }
     } catch (error: any) {
-      const message = error.response?.data?.error || "Authentication failed";
-      if (message === "Invalid credentials") {
-        alert("Login failed. Please check your email and password, or register if you don't have an account yet.");
-      } else {
-        alert(message);
-      }
+      const data = error.response?.data;
+      const message = data?.message || data?.error || "Authentication failed";
+      alert(message);
       setPassword('');
     }
   };

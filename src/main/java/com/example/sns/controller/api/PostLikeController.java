@@ -3,8 +3,6 @@ package com.example.sns.controller.api;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.sns.domain.User;
+import com.example.sns.exception.BusinessException;
+import com.example.sns.exception.ErrorCode;
 import com.example.sns.service.AuthService;
 import com.example.sns.service.PostLikeService;
 
@@ -26,25 +27,25 @@ public class PostLikeController {
     private final AuthService authService;
 
     @PostMapping("/posts/{id}/like")
-    public ResponseEntity<Void> like(@PathVariable Long id,
-                                     @AuthenticationPrincipal UserDetails userDetails) {
-        Long userId = authService.getCurrentUser(userDetails.getUsername()).getId();
-        postLikeService.like(userId, id);
+    public ResponseEntity<Void> like(@PathVariable Long id) {
+        User currentUser = authService.getCurrentUserEntity()
+                .orElseThrow(() -> new BusinessException(ErrorCode.UNAUTHORIZED));
+        postLikeService.like(currentUser.getId(), id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/posts/{id}/like")
-    public ResponseEntity<Void> unlike(@PathVariable Long id,
-                                       @AuthenticationPrincipal UserDetails userDetails) {
-        Long userId = authService.getCurrentUser(userDetails.getUsername()).getId();
-        postLikeService.unlike(userId, id);
+    public ResponseEntity<Void> unlike(@PathVariable Long id) {
+        User currentUser = authService.getCurrentUserEntity()
+                .orElseThrow(() -> new BusinessException(ErrorCode.UNAUTHORIZED));
+        postLikeService.unlike(currentUser.getId(), id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/profile/liked-post-ids")
-    public ResponseEntity<List<Long>> getLikedPostIds(
-            @AuthenticationPrincipal UserDetails userDetails) {
-        Long userId = authService.getCurrentUser(userDetails.getUsername()).getId();
-        return ResponseEntity.ok(postLikeService.getLikedPostIds(userId));
+    public ResponseEntity<List<Long>> getLikedPostIds() {
+        User currentUser = authService.getCurrentUserEntity()
+                .orElseThrow(() -> new BusinessException(ErrorCode.UNAUTHORIZED));
+        return ResponseEntity.ok(postLikeService.getLikedPostIds(currentUser.getId()));
     }
 }

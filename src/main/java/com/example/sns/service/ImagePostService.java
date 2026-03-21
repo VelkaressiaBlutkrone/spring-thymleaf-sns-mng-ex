@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sns.domain.ImagePost;
@@ -87,6 +89,10 @@ public class ImagePostService {
     public ImagePostResponse create(String title, String content, MultipartFile image,
             Double latitude, Double longitude, Long pinId, User author) {
         String storedPath = fileStorageService.storeImage(image, STORAGE_SUB_DIR);
+
+        // 트랜잭션 롤백 시 저장된 파일 삭제 (고아 파일 방지)
+        registerRollbackCleanup(storedPath);
+
         var pin = pinId != null ? pinRepository.findById(pinId).orElse(null) : null;
 
         ImagePost post = ImagePost.builder()
@@ -118,8 +124,12 @@ public class ImagePostService {
 
         String newPath = post.getImageStoragePath();
         if (image != null && !image.isEmpty()) {
-            fileStorageService.deleteIfExists(post.getImageStoragePath());
+            String oldPath = post.getImageStoragePath();
             newPath = fileStorageService.storeImage(image, STORAGE_SUB_DIR);
+
+            // 트랜잭션 롤백 시 새 파일 삭제, 커밋 시 이전 파일 삭제
+            registerRollbackCleanup(newPath);
+            registerCommitCleanup(oldPath);
         }
         var pin = pinId != null ? pinRepository.findById(pinId).orElse(null) : null;
         post.update(title, content, newPath, latitude, longitude, pin);
@@ -136,8 +146,11 @@ public class ImagePostService {
             log.warn("이미지 게시글 삭제 IDOR 시도: imagePostId={}, userId={}", id, currentUser.getId());
             throw new BusinessException(ErrorCode.FORBIDDEN, "본인의 게시글만 삭제할 수 있습니다.");
         }
-        fileStorageService.deleteIfExists(post.getImageStoragePath());
+        String imagePath = post.getImageStoragePath();
         imagePostRepository.delete(post);
+
+        // 커밋 성공 후에만 파일 삭제 (DB 삭제 실패 시 파일 유지)
+        registerCommitCleanup(imagePath);
         log.info("이미지 게시글 삭제: imagePostId={}, authorId={}", id, currentUser.getId());
     }
 
@@ -212,8 +225,10 @@ public class ImagePostService {
         ImagePost post = findById(id);
         String newPath = post.getImageStoragePath();
         if (image != null && !image.isEmpty()) {
-            fileStorageService.deleteIfExists(post.getImageStoragePath());
+            String oldPath = post.getImageStoragePath();
             newPath = fileStorageService.storeImage(image, STORAGE_SUB_DIR);
+            registerRollbackCleanup(newPath);
+            registerCommitCleanup(oldPath);
         }
         post.update(title, content, newPath);
         log.info("관리자 이미지 게시글 수정: imagePostId={}", id);
@@ -226,8 +241,9 @@ public class ImagePostService {
     @Transactional
     public void deleteByAdmin(Long id) {
         ImagePost post = findById(id);
-        fileStorageService.deleteIfExists(post.getImageStoragePath());
+        String imagePath = post.getImageStoragePath();
         imagePostRepository.delete(post);
+        registerCommitCleanup(imagePath);
         log.info("관리자 이미지 게시글 삭제: imagePostId={}", id);
     }
 
@@ -240,5 +256,29 @@ public class ImagePostService {
         post.setNotice(notice);
         log.info("관리자 공지 설정: imagePostId={}, notice={}", id, notice);
         return ImagePostResponse.from(post);
+    }
+
+    /** 트랜잭션 롤백 시 저장된 파일 삭제 (고아 파일 방지). */
+    private void registerRollbackCleanup(String storedPath) {
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCompletion(int status) {
+                if (status == STATUS_ROLLED_BACK) {
+                    log.info("트랜잭션 롤백 — 고아 파일 삭제: {}", storedPath);
+                    fileStorageService.deleteIfExists(storedPath);
+                }
+            }
+        });
+    }
+
+    /** 트랜잭션 커밋 후 이전 파일 삭제. */
+    private void registerCommitCleanup(String oldPath) {
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCommit() {
+                log.debug("트랜잭션 커밋 — 이전 파일 삭제: {}", oldPath);
+                fileStorageService.deleteIfExists(oldPath);
+            }
+        });
     }
 }

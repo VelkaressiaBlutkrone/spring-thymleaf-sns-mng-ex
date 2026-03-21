@@ -222,8 +222,8 @@ export const useMapSNS = () => {
         title: pinTitle || "New Pin",
         description: pinDescription,
         category: pinCategory,
-        lat: clickCoord.lat,
-        lng: clickCoord.lng
+        latitude: clickCoord.lat,
+        longitude: clickCoord.lng
       });
       setIsPinModalOpen(false);
       setPinTitle('');
@@ -231,7 +231,8 @@ export const useMapSNS = () => {
       setPinCategory('default');
       fetchData();
     } catch (error: any) {
-      alert(error.response?.data?.error || "Failed to create pin");
+      const data = error.response?.data;
+      alert(data?.message || data?.error || "Failed to create pin");
     }
   };
 

@@ -117,6 +117,25 @@ class PostRepository {
     }
   }
 
+  /// 내 게시글 목록: GET /api/me/posts
+  Future<PageResponse<PostResponse>> getMine({
+    int page = 0,
+    int size = 20,
+  }) async {
+    try {
+      final res = await _api.get(
+        ApiConstants.mePosts,
+        queryParameters: {'page': page, 'size': size},
+      );
+      return PageResponse.fromJson(
+        res.data as Map<String, dynamic>,
+        (json) => PostResponse.fromJson(Map<String, dynamic>.from(json)),
+      );
+    } on DioException catch (e) {
+      throw mapDioException(e);
+    }
+  }
+
   /// Pin별 게시글 목록: GET /api/pins/{id}/posts
   Future<PageResponse<PostResponse>> getByPinId(
     int pinId, {

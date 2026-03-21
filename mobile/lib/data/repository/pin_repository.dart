@@ -34,6 +34,25 @@ class PinRepository {
     }
   }
 
+  /// 내 Pin 목록: GET /api/me/pins
+  Future<PageResponse<PinResponse>> getMyPins({
+    int page = 0,
+    int size = 50,
+  }) async {
+    try {
+      final res = await _api.get(
+        ApiConstants.mePins,
+        queryParameters: {'page': page, 'size': size},
+      );
+      return PageResponse.fromJson(
+        res.data as Map<String, dynamic>,
+        (json) => PinResponse.fromJson(Map<String, dynamic>.from(json)),
+      );
+    } on DioException catch (e) {
+      throw mapDioException(e);
+    }
+  }
+
   /// 반경 내 Pin 조회: GET /api/pins/nearby
   Future<PageResponse<PinResponse>> getNearby({
     required double lat,

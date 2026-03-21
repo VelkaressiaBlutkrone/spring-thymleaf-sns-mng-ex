@@ -1,10 +1,14 @@
-// 게시글 상세 화면. TASK_MOBILE Step 5
+// 게시글 상세 화면. TASK_MOBILE Step 5, Step 8 (수정/삭제)
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/di/app_providers.dart';
+import '../../../core/error/app_exception.dart';
+import '../../../core/router/app_router.dart';
 import '../../../shared/widgets/common/app_error_view.dart';
 import '../../../shared/widgets/common/loading_widget.dart';
+import '../../providers/auth_provider.dart';
 import '../../providers/post_provider.dart';
 
 /// 게시글 상세
@@ -12,6 +16,55 @@ class PostDetailScreen extends ConsumerWidget {
   const PostDetailScreen({super.key, required this.postId});
 
   final int postId;
+
+  /// 현재 로그인 사용자가 작성자인지 확인
+  bool _isAuthor(WidgetRef ref, int authorId) {
+    final authState = ref.read(authNotifierProvider);
+    return authState is AuthAuthenticated && authState.member.id == authorId;
+  }
+
+  /// 삭제 확인 다이얼로그
+  Future<void> _confirmDelete(BuildContext context, WidgetRef ref) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('게시글 삭제'),
+        content: const Text('정말 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('취소'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(ctx).colorScheme.error,
+            ),
+            child: const Text('삭제'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    try {
+      await postRepository.delete(postId);
+      ref.invalidate(postListProvider(const PostListParams()));
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('게시글이 삭제되었습니다.')),
+        );
+        context.go(AppRoutes.posts);
+      }
+    } on AppException catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message)),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,6 +77,22 @@ class PostDetailScreen extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.pop(),
         ),
+        actions: [
+          if (async.valueOrNull != null &&
+              _isAuthor(ref, async.valueOrNull!.authorId)) ...[
+            IconButton(
+              icon: const Icon(Icons.edit_outlined),
+              tooltip: '수정',
+              onPressed: () =>
+                  context.push(AppRoutes.postEditPath(postId)),
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete_outline),
+              tooltip: '삭제',
+              onPressed: () => _confirmDelete(context, ref),
+            ),
+          ],
+        ],
       ),
       body: async.when(
         data: (post) => SingleChildScrollView(

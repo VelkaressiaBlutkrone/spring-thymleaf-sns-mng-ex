@@ -9,6 +9,7 @@ import '../../presentation/screens/auth/login_screen.dart';
 import '../../presentation/screens/main_tab_screen.dart';
 import '../../features/map/presentation/screens/map_screen.dart';
 import '../../presentation/screens/image_posts/image_post_form_screen.dart';
+import '../../presentation/screens/about/about_screen.dart';
 import '../../presentation/screens/me/me_screen.dart';
 import '../../presentation/screens/image_posts/image_post_detail_screen.dart';
 import '../../presentation/screens/posts/post_detail_screen.dart';
@@ -32,6 +33,7 @@ abstract class AppRoutes {
   static const String imagePostEdit = '/image-posts/:id/edit';
   static const String imagePostDetail = '/image-posts/:id';
   static const String me = '/me';
+  static const String about = '/about';
 
   static String postDetailPath(int id) => '/posts/$id';
   static String postEditPath(int id) => '/posts/$id/edit';
@@ -139,6 +141,14 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: AppRoutes.me,
                 builder: (context, state) => const MeScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutes.about,
+                builder: (context, state) => const AboutScreen(),
               ),
             ],
           ),

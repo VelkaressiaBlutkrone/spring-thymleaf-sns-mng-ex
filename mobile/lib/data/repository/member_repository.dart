@@ -26,6 +26,19 @@ class MemberRepository {
     }
   }
 
+  /// 개인정보 수정: PUT /api/me
+  Future<MemberResponse> updateMe(MemberUpdateRequest request) async {
+    try {
+      final res = await _api.put(
+        ApiConstants.me,
+        data: request.toJson(),
+      );
+      return MemberResponse.fromJson(res.data as Map<String, dynamic>);
+    } on DioException catch (e) {
+      throw _mapDioException(e);
+    }
+  }
+
   AppException _mapDioException(DioException e) {
     if (e.response != null) {
       final status = e.response!.statusCode ?? 0;

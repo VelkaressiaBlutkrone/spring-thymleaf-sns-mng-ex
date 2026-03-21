@@ -39,6 +39,11 @@ class MainTabScreen extends StatelessWidget {
             selectedIcon: Icon(Icons.person),
             label: '마이페이지',
           ),
+          NavigationDestination(
+            icon: Icon(Icons.info_outline),
+            selectedIcon: Icon(Icons.info),
+            label: 'About',
+          ),
         ],
       ),
     );

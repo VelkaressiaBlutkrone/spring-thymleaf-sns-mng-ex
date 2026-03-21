@@ -160,6 +160,25 @@ class ImagePostRepository {
     }
   }
 
+  /// 내 이미지 게시글 목록: GET /api/me/image-posts
+  Future<PageResponse<ImagePostResponse>> getMine({
+    int page = 0,
+    int size = 20,
+  }) async {
+    try {
+      final res = await _api.get(
+        ApiConstants.meImagePosts,
+        queryParameters: {'page': page, 'size': size},
+      );
+      return PageResponse.fromJson(
+        res.data as Map<String, dynamic>,
+        (json) => ImagePostResponse.fromJson(Map<String, dynamic>.from(json)),
+      );
+    } on DioException catch (e) {
+      throw mapDioException(e);
+    }
+  }
+
   /// Pin별 이미지 게시글 목록: GET /api/pins/{id}/image-posts
   Future<PageResponse<ImagePostResponse>> getByPinId(
     int pinId, {
